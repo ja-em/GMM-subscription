@@ -7,23 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Subscriptions {
-    id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-    name         String
-    msisdn       String   @unique
-    serviceId    String   @db.Uuid
-    seviceDetail Service  @relation(fields: [serviceId], references: [id])
-    registerAt   DateTime @default(now())
+model Subscription {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  msisdn       String
+  serviceId    String    @db.Uuid
+  seviceDetail Service   @relation(fields: [serviceId], references: [id])
+  registerAt   DateTime? @default(now())
 }
 
 model Service {
-    id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-    detail        String
-    subscriptions Subscriptions[]
+  id            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  detail        String
+  subscriptions Subscription[]
 }
 
 model BlackList {
-    id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-    msisdn       String   @unique
-    reason       String
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  msisdn String @unique
+  reason String
 }
