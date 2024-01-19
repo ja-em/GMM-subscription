@@ -1,4 +1,4 @@
-node version v18.14.0 \n
+node version v18.14.0 <br>
 SET UP
 1. npm i
 2. npm run db
