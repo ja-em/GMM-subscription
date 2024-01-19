@@ -1,17 +1,11 @@
-import { IsNumberString, IsUUID, Length } from 'class-validator';
-import { IsStartWith } from 'src/utils/validation';
+import { IsUUID } from 'class-validator';
+import { MsisdnDto } from 'src/utils/dto';
 
-class Msisdn {
-  @IsNumberString()
-  @Length(11, 11)
-  @IsStartWith('66')
-  msisdn: string;
-}
-export class RegisterBody extends Msisdn {
+export class RegisterBody extends MsisdnDto {
   @IsUUID()
   serviceId: string;
 }
 
-export class GetByMsisdnParam extends Msisdn {}
+export class GetByMsisdnParam extends MsisdnDto {}
 
 export class DeleteByMsisdnAndServiceId extends RegisterBody {}

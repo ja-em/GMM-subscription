@@ -43,7 +43,7 @@ export class SubscriptionService {
         },
       }),
       this._serviceService.validateService(body.serviceId),
-      this._blackListService.isInBlackList(body.msisdn),
+      this._blackListService.findInBlackList(body.msisdn),
     ]);
 
     //* The msisdn must not be listed in the blacklist table, meaning it is not banned from registering.
