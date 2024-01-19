@@ -1,10 +1,16 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Module, OnModuleDestroy } from '@nestjs/common';
+import { SubscriptionModule } from './subscription/subscription.module';
+import { PrismaClient } from '@prisma/client';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [SubscriptionModule],
+  providers: [PrismaClient],
 })
-export class AppModule {}
+export class AppModule implements OnModuleDestroy {
+  constructor(private _prismaClient: PrismaClient) {}
+  async onModuleDestroy() {
+    console.log('DES');
+
+    await this._prismaClient.$disconnect();
+  }
+}
